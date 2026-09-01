@@ -20,13 +20,12 @@ public:
         while (l1 && l2){
             if (l1->val <= l2->val){
                 out->next = new ListNode(l1->val);
-                out = out->next;
                 l1 = l1->next;
             }else{
                 out->next = new ListNode(l2->val);
                 l2 = l2->next;
-                out = out->next;
             }
+	    out = out->next;
         }
 
         while (l1){
