@@ -1,35 +1,35 @@
-#include <set>
 #include <vector>
 #include <map>
 #include <string>
 #include <iostream>
-
+#include <algorithm>
 using namespace std;
 vector<vector<string>> groupAnagrams(vector<string>& strs) {
         if (strs.size() == 1){
 		return {strs};
 	}
+	std::vector<std::vector<std::string>> output = {};
 
-	std::map<pair<std::set<char>, size_t>, std::vector<std::string>> hashes;
-
+	std::map<std::string, std::vector<std::string>> hashes;
+	
+	std::string scat;
 	for (string str:strs){
-		std::set<char> scat(str.begin(), str.end());
-		size_t len = 0;
-		for (char c:str){len+=c;};
-		std::pair<std::set<char>, size_t> group = {scat, len}; 
-		if (hashes.find(group) != hashes.end()){
-			hashes[group].push_back(str);
+		scat = str;
+		std::sort(scat.begin(), scat.end());
+		if (hashes.find(scat) != hashes.end()){
+			hashes[scat].push_back(str);
+			continue;
 		} else{
-			hashes[group] = {str};
+			hashes[scat] = {str};
+			continue;
 		}
      	}
 
-	std::vector<std::vector<std::string>> output = {};
 	
 	for (auto item:hashes){
 		output.push_back(item.second);	
 	}
-
+	
 	return output;
         
 }
@@ -37,8 +37,6 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 int main(){
 	
 	std::vector<std::string> strs = {"eat","tea","tan","ate","nat","bat"};
-
-	//strs = {}
 	
 	std::vector<std::vector<std::string>> x = groupAnagrams(strs);
 
