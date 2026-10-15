@@ -16,13 +16,7 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
 	for (string str:strs){
 		scat = str;
 		std::sort(scat.begin(), scat.end());
-		if (hashes.find(scat) != hashes.end()){
-			hashes[scat].push_back(str);
-			continue;
-		} else{
-			hashes[scat] = {str};
-			continue;
-		}
+		hashes[scat].push_back(str);
      	}
 
 	
